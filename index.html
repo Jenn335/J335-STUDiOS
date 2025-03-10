@@ -1,87 +1,384 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
+  <!-- Charset -->
   <meta charset="UTF-8">
+  
+  <!-- Internet Explorer -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Mobile Configs -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>J335-STUDIOS!</title>
-  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Description -->
+  <meta name="description" content="Descubra a Revolução dos Addons para Minecraft Bedrock com J335-STUDiOS!
+  
+Bem-vindo ao J335-STUDiOS, a plataforma definitiva para transformar sua experiência no Minecraft Bedrock. Aqui, a inovação se une à criatividade para oferecer uma seleção exclusiva de addons – incluindo mods, texturas, mapas e muito mais – desenvolvidos para elevar o seu jogo a um novo patamar.
+
+No J335-STUDiOS, você encontra addons de alta performance, cuidadosamente testados e atualizados constantemente para garantir compatibilidade e qualidade. Nossa comunidade vibrante e apaixonada está sempre pronta para compartilhar ideias, dicas e experiências, fazendo do nosso site o ponto de encontro perfeito para jogadores que buscam personalizar e reinventar seus mundos no Minecraft.
+
+Transforme sua aventura, explore novas possibilidades e dê vida a criações únicas com os recursos exclusivos do J335-STUDiOS. Entre agora e faça parte da revolução que está redefinindo o universo Minecraft Bedrock – o futuro do seu jogo começa aqui!">
+  
+  <!-- Palavras-chave  -->
+  <meta name="keywords" content="J335-STUDiOS, addons, Minecraft, MCPE">
+  
+  <!-- Author -->
+  <meta name="author" content="Jenn335">
+  
+  <!-- Ícone que aparece na aba do navegador -->
+  <link rel="icon" href="/assets/img/icons/fav-icon.png" type="image/png">
+  
+  <!-- Ícone para dispositivos Apple (quando o usuário salvar o site na tela inicial) -->
+  <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+  
+  <title>J335-STUDiOS</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+  
+  </style>
 </head>
+
 <body>
-  <header>
-    <!--img class="banner-img" src="studios.png" alt="Minecraft Logo"-->
-    <h1>J335-STUDIOS!</h1>
-    <nav class="website-pags">
-      <a href="#" class="website-ref">Mods</a>
-      <a href="#" class="website-ref">Tutoriais</a>
-      <a href="#" class="website-ref">Fórum</a>
-      <a href="#"class="website-ref">Contato</a>
-    </nav>
-  </header>
-
-  <div class="banner" >
-  </div>
-
-  <div class="highlight-section">
-    <h2 class="text-center">Mods mais acessados!</h2>
-    <!-- Aqui você pode listar alguns mods em destaque -->
-    <div class="mod-content">
+  <!-- Overlay de Autenticação -->
+  <div class="auth-overlay" id="auth-overlay" style="display: none;">
+    <div class="auth-box">
+      <h3 id="form-title" class="text-center mb-4">Registrar-se</h3>
       
-      <div class="mod-display">
-        <a href="#" class="mod-display-text">Mod 1</a>
+      <!-- Formulário de Registro -->
+      <form id="signupForm" class="mb-2">
+        <div class="mb-2">
+          <div class="input-group">
+            <div class="input-icon">
+              <i class="fa-solid fa-at"></i>
+            </div>
+            <input type="text" id="username" class="form-control" placeholder="Nome de usuário" maxlength="30" minlength="3" required>
+            <div class="input-feedback"></div>
+          </div>
+          <div class="form-text text-danger" id="usernameError"></div>
+        </div>
+        
+        <div class="mb-2">
+          <div class="input-group">
+            <div class="input-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <input type="email" id="email" class="form-control" placeholder="Email" required>
+            <div class="input-feedback"></div>
+          </div>
+          <div class="form-text text-danger" id="emailError"></div>
+        </div>
+        
+        <div class="mb-2">
+          <div class="input-group">
+            <div class="input-icon">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <input type="password" id="password" class="form-control" placeholder="Senha" minlength="6" maxlength="30" required>
+            <button type="button" class="btn btn-link text-generic position-absolute end-0 top-50 translate-middle-y" id="togglePassword">
+              <i class="fas fa-eye"></i>
+            </button>
+            <div class="input-feedback"></div>
+          </div>
+          <div class="form-text text-danger" id="passwordError"></div>
+          <div id="forgot-password" class="d-none text-center mb-2">
+            <small>Esqueceu a senha? <a href="" class="text-link">Recuperar senha</a></small>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-danger w-100 mb-2" disabled id="signup-submit">
+          Submit
+        </button>
+        <div class="text-center mb-1">OU</div>
+        <button id="google-signin" type="button" onclick="signInWithGoogle()" class="btn google-btn w-100">
+          <i class="fab fa-google me-2"></i>Continuar com Google
+        </button>
+        <div id="form-change" class="text-center mb-0">
+          <small>Já tem uma conta? <a href="?mode=login" class="login-link">Login</a></small>
+        </div>
+        
+      </form>
+      
+      <div class="text-center">
+        <small class="text-generic">Ao continuar, você concorda com nossos Termos de Serviço</small>
       </div>
-      
-      <div class="mod-display">
-        <a href="#" class="mod-display-text">Mod 2</a>
-      </div>
-      
-      <div  class="mod-display">
-        <a href="#" class="mod-display-text">Mod 3</a>
-      </div>
-      
     </div>
   </div>
-
-  <div class="mod-categories">
-    <div class="mod-category">
-      <h3>Texturas</h3>
-      <p>Encontre as melhores texturas para o seu Minecraft PE.</p>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <!-- Logotipo -->
+      <a class="navbar-brand" href="/">
+        <img src="/assets/img/logo.png" alt="J335-STUD!OS Logotipo" width="180" height="40" class="d-inline-block align-top">
+      </a>
+      
+      <!-- Botão Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-expanded="false">
+        <i class="fa-solid fa-x"></i>
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      
+      <!-- Itens do Menu -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i>Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">
+                  <i class="fas fa-user me-2"></i>Meu Perfil
+                </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalForm">
+                  <i class="fas fa-sign-out-alt me-2"></i>Sair
+                </button></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="addonsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-cubes me-1"></i>Addons
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/search">Todos os Addons</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/search?category=survival">Survival</a></li>
+              <li><a class="dropdown-item" href="/search?category=adventure">Aventura</a></li>
+              <li><a class="dropdown-item" href="/search?category=technology">Tecnologia</a></li>
+              <li><a class="dropdown-item" href="/search?category=magic">Magia</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tools">
+              <i class="fas fa-tools me-1"></i>Ferramentas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/community">
+              <i class="fas fa-users me-1"></i>Comunidade
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/support">
+              <i class="fas fa-headset me-1"></i>Suporte
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Barra de Pesquisa -->
+        <form class="d-flex ms-lg-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar Addons" aria-label="Search">
+          <button class="btn btn-outline-danger" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="mod-category">
-      <h3>Mapas</h3>
-      <p>Explore novos mundos com esses incríveis mapas.</p>
-    </div>
-    <div class="mod-category">
-      <h3>Mods de Jogabilidade</h3>
-      <p>Altere a jogabilidade do seu Minecraft PE com esses mods.</p>
+  </nav>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-3 border-danger">
+        <div class="modal-header bg-dark border-bottom-danger">
+          <h1 class="modal-title text-danger" id="staticBackdropLabel">
+            <i class="fa-solid fa-right-from-bracket me-2"></i>Terminar Secção
+          </h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-darker">
+          <div class="d-flex align-items-center gap-3">
+            <i class="fas fa-exclamation-triangle text-danger fa-2x"></i>
+            <p class="mb-0 text-generic">Você realmente deseja encerrar sua sessão?</p>
+          </div>
+        </div>
+        <div class="modal-footer bg-dark border-top-danger">
+          <button type="button" class="btn btn-dark hover-danger" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </button>
+          <button type="button" class="btn btn-outline-danger hover-fill" onclick="logout()">
+            <i class="fas fa-sign-out-alt me-2"></i>Sair
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <footer>
-    <p>&copy; 2024 J335-STUDIOS. Todos os direitos reservados.</p>
+  
+  <!-- Botão Flutuante Admin -->
+  <div id="adminFloatBtn" class="position-fixed bottom-0 end-0 m-3">
+  </div>
+  
+  <div id="mainContent">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="container text-center">
+        <h1 class="display-3 mb-4 brand-logo">
+          J335-STUD<span class="text-danger">!</span>OS
+        </h1>
+        <p class="lead mb-4">Criações exclusivas para Minecraft Bedrock</p>
+        <div class="d-flex gap-3 justify-content-center">
+          <a href="/search" class="btn btn-lg download-btn px-4">
+            <i class="fas fa-download me-2"></i>Explorar
+          </a>
+          <a href="/contact" class="btn btn-outline-danger btn-lg px-4">
+            <i class="fas fa-code-branch me-2"></i>Customizar
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Seção de Addons -->
+    <section class="py-5" id="addons">
+      <div class="container">
+        <h2 class="text-center mb-5">Nossos Addons Recentes</h2>
+        <div class="row g-4" id="mods-container">
+          <!-- Addon Cards -->
+        </div>
+      </div>
+    </section>
+    
+    <!-- Template do Card -->
+    <template id="addonCardTemplate">
+      <div class="col-md-4 mb-4">
+        <div class="card addon-card h-100">
+          <div class="position-relative">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">Novo</span>
+            <img src="assets/img/default.jpg" class="card-img-top" alt="Thumbnail do Addon">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="flex-grow-1">
+              <h5 class="card-title">Nome do Addon</h5>
+              <p class="card-text text-generic">Descrição breve do addon...</p>
+            </div>
+            <div class="mt-auto">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-dark">Categoria</span>
+                <small class="text-generic">v1.0.0</small>
+              </div>
+              <div class="d-grid gap-2">
+                <a href="#" class="btn btn-danger">
+                  <i class="fas fa-download me-2"></i>Baixar
+                </a>
+                <a href="/addon" class="btn btn-outline-danger">
+                  <i class="fas fa-info-circle me-2"></i>Detalhes
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="border-top border-danger">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4 class="brand-logo mb-3">J335-STUD<span>!</span>OS</h4>
+          <p class="text-generic">Inovação em desenvolvimento de addons desde 2023</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="text-danger mb-3">Links Rápidos</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="/search" class="social-link">
+                <i class="fas fa-dice-d20 me-2"></i>Nossos Addons
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/tools" class="social-link">
+                <i class="fas fa-tools me-2"></i>Ferramentas
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/contact" class="social-link">
+                <i class="fas fa-headset me-2"></i>Suporte
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/about-us" class="social-link">
+                <i class="bi bi-info-circle me-2"></i>Sobre Nós
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="end-info">
+          <!--h5 class="text-danger mb-3">Conecte-se</h5-->
+          <div class="d-flex gap-3 justify-content-center">
+            <a href="https://discord.com/invite/EygNWCawhZ" class="social-link icon">
+              <i class="fab fa-discord fa-2x"></i>
+            </a>
+            <a href="https://youtube.com/@Jenn335_" class="social-link icon">
+              <i class="fab fa-youtube fa-2x"></i>
+            </a>
+            <a href="https://x.com/Jenn335Oficial" class="social-link icon">
+              <i class="fab fa-x-twitter fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <small class="text-generic">&copy; 2024 J335-STUD!OS - Todos os direitos reservados</small>
+      </div>
+    </div>
   </footer>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDkrmrRrzLYUKooYa_qTHlzroSEzjfZDZA",
-    authDomain: "j335-addons.firebaseapp.com",
-    projectId: "j335-addons",
-    storageBucket: "j335-addons.appspot.com",
-    messagingSenderId: "592911173418",
-    appId: "1:592911173418:web:c3cdb921e7bd6620ec0053",
-    measurementId: "G-FRV15EN5QW"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  </script>
-  </script src="scripts.js">
+  
+  <!-- Alert-->
+  <div id="web-notification" class="alert-overlay">
+    <audio id="alert-sound" src="/assets/sounds/740422__anthonyrox__message-notification-3.wav"></audio>
+    <div class="alert-box">
+      <div class="alert-icon"></div>
+      <div class="alert-content">
+        <p class="alert-message"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loader" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Bootstrap JS e dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Firebase Dependencies-->
+  <!-- Firebase App  -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase Storage -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+  
+  <!-- SupaBase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Common Scripts -->
+  <script defer src="assets/js/loader.js"></script>
+  <script defer src="assets/js/firebase.js"></script>
+  <script defer src="assets/js/utilities.js"></script>
+  <script defer src="assets/js/scripts.js"></script>
 </body>
+
 </html>
