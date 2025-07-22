@@ -1,3 +1,19 @@
+class Component {
+  constructor(htmlString) {
+    const template = document.createElement('template');
+    template.innerHTML = htmlString.trim(); // Remove espaços em branco
+    this.element = template.content.firstElementChild;
+  }
+  
+  toString() {
+    return this.element.outerHTML;
+  }
+  
+  elements() {
+    return this.element;
+  }
+}
+
 function getDateFromTimestamp(timestamp) {
   if (typeof(timestamp) == "object" && !isNaN(timestamp.seconds))
     return new Date(timestamp.seconds * 1000);
@@ -17,15 +33,15 @@ function getDateFromTimestamp(timestamp) {
 function getRelativeTime(timestamp) {
   // Obtém o timestamp atual (em milissegundos)
   var now = Date.now();
-
+  
   // Se o timestamp for do futuro, retorna "Em breve"
   if (timestamp > now) {
     return "Em breve";
   }
-
+  
   // Calcula a diferença em milissegundos entre agora e o timestamp informado
   var delta = now - timestamp;
-
+  
   // 1 minuto = 60.000 ms
   if (delta < 60000) {
     return "agora";
@@ -73,11 +89,11 @@ function getYouTubeThumbnail(youtubeId, quality = "hqdefault") {
     sddefault: "sddefault.jpg",
     maxresdefault: "maxresdefault.jpg"
   };
-
+  
   if (!qualities[quality]) {
     quality = "hqdefault";
   }
-
+  
   return `https://img.youtube.com/vi/${youtubeId}/${qualities[quality]}`;
 }
 
@@ -86,86 +102,6 @@ function extractYouTubeId(url) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
-}
-
-let editingMod = null;
-
-function setupForm() {
-  const form = document.getElementById('modForm');
-
-  form.innerHTML = `
-        <h4 class="mb-3">${editingMod ? 'Editar' : 'Adicionar'} Addon</h4>
-        
-        <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" id="modName" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Descrição</label>
-            <textarea id="modDescription" class="form-control" rows="3" required></textarea>
-        </div>
-
-        <div class="row g-3 mb-3">
-            <div class="col-md-6">
-                <label class="form-label">Versão</label>
-                <input type="text" id="modVersion" class="form-control" required>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Compatibilidade</label>
-                <input type="text" id="modSupport" class="form-control" required>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Url do YouTube</label>
-            <input type="url" id="youtubeUrl" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Categoria</label>
-            <select id="modCategory" class="form-select">
-                <option>Tecnology</option>
-                <option>Magic</option>
-                <option>Decoration</option>
-                <option>Utilities</option>
-                <option>BETA</option>
-                <option>Scripts</option>
-                <option>Vanilla</option>
-            </select>
-        </div>
-
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-danger">
-                ${editingMod ? 'Atualizar' : 'Adicionar'}
-            </button>
-            
-            ${editingMod ? 
-                `<button type="button" onclick="cancelEdit()" class="btn btn-outline-danger">
-                    Cancelar
-                </button>` : ''
-            }
-        </div>
-        <div id="modID" class="d-none">${editingMod ? editingMod.id : ""}</div>
-    `;
-
-  if (editingMod) {
-    // Preenche os campos se estiver editando
-    document.getElementById('modName').value = editingMod.name;
-    document.getElementById('modDescription').value = editingMod.info.description;
-    document.getElementById('modVersion').value = editingMod.version;
-    document.getElementById('modSupport').value = editingMod.info.support;
-    document.getElementById('youtubeUrl').value = `https://youtu.be/${editingMod.youtubeId}`;
-    document.getElementById('modCategory').value = editingMod.category;
-    document.getElementById("modID").innerHTML = editingMod.id;
-    console.log(editingMod.id)
-  }
-
-  form.onsubmit = async (e) => {
-    e.preventDefault();
-    await handleFormSubmit();
-  };
 }
 
 /**
@@ -182,99 +118,22 @@ function formatBytes(bytes, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals)) + " " + sizes[i];
 }
 
+function CompressNumber(number, decimals = 2) {
+  let category = ["", "k", "M", "B", "T", "Q", "Qi"];
+  let value = number.toString();
+  let index = (Math.log10(value) / 3 | 0);
+  
+  if (index < 1)
+    return value
+  
+  return (value / Math.pow(10, index * 3)).toFixed(1) + category[index];
+}
+
+
 // 🔹 Exemplo de Uso
 const mediafireUrl = "https://www.mediafire.com/file/qg1nfgu7adx9uv2/%255BRES%255D_-_More_Chest.v3.0.zip/file"; // Url do arquivo
 
-
-async function loadEditableMods() {
-  try {
-    const mods = await getAllDocuments('mods');
-    const list = document.getElementById('modsList');
-
-    mods.sort((a, b) => (b.info.date.seconds - a.info.date.seconds))
-    list.innerHTML = mods.map(mod => `
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 style="color:black;">${mod.name}</h5>
-                              <p style="color:#3030307D;">ID: ${mod.id}</p>
-                            <small class="text-muted">v${mod.version}</small>
-                        </div>
-                        
-                        <div class="d-flex gap-2">
-                            <button onclick="editMod('${mod.id}')" 
-                                    class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            
-                            <button onclick="deleteMod('${mod.id}')" 
-                                    class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-  } catch (error) {
-    console.error('Erro ao carregar mods:', error);
-  }
-}
-
-async function editMod(modId) {
-  editingMod = await getDocument('mods', modId);
-  editingMod.id=modId
-  setupForm();
-}
-
-function cancelEdit() {
-  editingMod = null;
-  setupForm();
-}
-
-async function deleteMod(modId) {
-  if (confirm('Tem certeza que deseja excluir este mod?')) {
-    await deleteDocument('mods', modId);
-    loadEditableMods();
-  }
-}
-
-async function handleFormSubmit() {
-  let youtubeId = extractYouTubeId(document.getElementById('youtubeUrl').value)
-  
-  let id = document.getElementById('modID').innerHTML
-
-  const modData = {
-    name: document.getElementById('modName').value,
-    version: document.getElementById('modVersion').value,
-    info: {
-      description: document.getElementById('modDescription').value,
-      support: document.getElementById('modSupport').value,
-      date: editingMod?.info.date || firebase.firestore.FieldValue.serverTimestamp()
-    },
-    youtubeId,
-    downloadUrl: "#",
-    category: document.getElementById('modCategory').value
-  };
-  
-  modData.id = id ? id : crypto.randomUUID()
-
-  try {
-
-    await setDocument('mods', modData.id, modData);
-
-    editingMod = null;
-    loadEditableMods();
-    setupForm();
-    
-    notify(`Você alterou os parâmetros do \"${modData.name}\" com Sucesso!`,"success")
-  } catch (error) {
-    alert('Erro ao salvar: ' + error.message);
-  }
-}
-
-function PreviousPage(){
+function PreviousPage() {
   if (history.length > 1)
     history.back();
   else notify('Não há página anterior!')
@@ -292,40 +151,139 @@ async function PageExist(url) {
   }
 }
 
+async function uploadImageToCloudinary(uploadPreset, file) {
+  const cloudName = 'dqnrbabe8';
+  const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+  
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', uploadPreset);
+  
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+  
+  const data = await response.json();
+  
+  if (!response.ok) {
+    throw new Error(data.error ? data.error.message : 'Erro no upload');
+  }
+  
+  // Obter dimensões da imagem
+  const img = new Image();
+  img.src = data.secure_url;
+  
+  await new Promise(resolve => {
+    img.onload = resolve;
+  });
+  
+  const width = img.width;
+  const height = img.height;
+  
+  let finalUrl = data.secure_url;
+  
+  // Aplica transformação se a resolução for menor que 256x256
+  if (width < 256 || height < 256) {
+    // Inserir transformação na URL
+    finalUrl = data.secure_url.replace(
+      '/upload/',
+      `/upload/w_256,h_256,c_pad,e_sharpen/`
+    );
+  }
+  
+  return finalUrl;
+}
+
+
+function copy(text) {
+  try {
+    
+    console.log(text)
+    
+    const textarea = document.createElement("textarea");
+    
+    textarea.value = text;
+    //textarea.style.display = "none"
+    
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    textarea.setSelectionRange(0, 99999); // Compatibilidade mobile
+    
+    // Copiar
+    document.execCommand("copy");
+    
+    // Remover o textarea
+    document.body.removeChild(textarea);
+    
+    notify("Texto copiado com sucesso!", "success");
+  } catch (err) {
+    notify("Erro ao copiar: " + err);
+  }
+}
+
+document
+  .querySelectorAll(".text-copy")
+  .forEach(e => {
+    e.addEventListener("click", function(event) {
+      copy(this.textContent)
+    })
+  })
+
+function LoadModalForm() {
+document
+  .querySelectorAll('[type="button"][data-bs-toggle="modal"]')
+  .forEach(element => {
+    element.addEventListener("click", function() {
+      let title = document.getElementById("modal-title")
+      let context = document.getElementById("modal-context")
+      let button = document.getElementById("modal-button-confirm")
+      
+      title.innerHTML = this.dataset.modalTitle ?? this.innerHTML
+      context.innerHTML = this.dataset.modalContext
+      button.innerHTML = this.dataset.acceptBtn ?? "Sim"
+      button.onclick = this.dataset.modalEvent
+    })
+  })
+}
+
+LoadModalForm()
+
 const Url = {
   getParam(param) {
     // Cria um objeto URLSearchParams a partir da parte da query string da Url
     const params = new URLSearchParams(window.location.search);
-
+    
     // Obtém o valor do parâmetro "addonId"
     return params.get(param);
   },
-  clear(msg,type){
+  clear(msg, type) {
     window.history.replaceState({}, document.title, window.location.pathname);
     if (msg) {
-      notify(msg,type)
+      notify(msg, type)
     }
   },
   open(href, msg, type = "error") {
-    if(href=="reload")
-      href=window.location.href 
+    if (href == "reload")
+      href = window.location.href
     
     PageExist(href).then(exist => {
       if (!exist) {
         window.location.href = "404.html"
       }
     });
-
+    
     if (msg) {
       const message = encodeURIComponent(msg);
-
+      
       window.location.href = `${href}${href.includes("?")?"&":"?"}message=${message}&type=${type}`;
     } else {
-      window.location.href = href 
+      window.location.href = href
     }
     Loader.hide()
   },
-
+  
   has(str) {
     return window.location.href.includes(str)
   }
@@ -340,30 +298,30 @@ function notify(message, type = 'error', duration = 4000) {
   const alertBox = alert.querySelector('.alert-box');
   const alertMessage = alert.querySelector('.alert-message');
   const alertIcon = alert.querySelector('.alert-icon')
-
+  
   // Reseta estilos
   alertBox.className = 'alert-box';
   alertBox.classList.add(`alert-${type}`);
-
+  
   alertSound.play()
-
+  
   if (type == "error") {
     alertIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`
   } else if (type == "success") {
     alertIcon.innerHTML = `<i class="fa-regular fa-circle-check"></i>`
-  } else if(type == "info") {
+  } else if (type == "info") {
     alertIcon.innerHTML = `<i class="fa-solid fa-circle-info"></i>`
   }
-
-
+  
+  
   // Configura mensagem
   alertMessage.textContent = message;
-
+  
   // Animação
   alert.style.animation = 'none';
   void alert.offsetHeight; // Trigger reflow
   alert.style.animation = 'slideIn 4s forwards';
-
+  
   // Remove após o tempo definido
   clearTimeout(NotifyLastTimout)
   NotifyLastTimout = setTimeout(() => {
@@ -372,12 +330,11 @@ function notify(message, type = 'error', duration = 4000) {
   }, duration);
 }
 
-// Função para ler parâmetros da Url
 function AlertMessage() {
   const urlParams = new URLSearchParams(window.location.search);
   const message = urlParams.get('message');
   const type = urlParams.get('type') || 'error';
-
+  
   if (message) {
     notify(decodeURIComponent(message), type);
     // Limpa a Url
@@ -387,14 +344,14 @@ function AlertMessage() {
 
 function URLParamEvents({ id, values = [], clear = false }, callback) {
   const urlParams = new URLSearchParams(window.location.search);
-
+  
   const param = urlParams.get(id);
   const test = values.some(e => e == param)
-
+  
   if (test || !values.length && (param != undefined)) {
     if (clear)
       window.history.replaceState({}, document.title, window.location.pathname);
-
+    
     document.addEventListener('DOMContentLoaded', () => {
       callback(param)
     })
