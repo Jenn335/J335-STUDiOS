@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <!-- Charset -->
+  <meta charset="UTF-8">
+  
+  <!-- Internet Explorer -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Mobile Configs -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Description -->
+  <meta name="description" content="Descubra a Revolução dos Addons para Minecraft Bedrock com J335-STUDiOS!
+  
+Bem-vindo ao J335-STUDiOS, a plataforma definitiva para transformar sua experiência no Minecraft Bedrock. Aqui, a inovação se une à criatividade para oferecer uma seleção exclusiva de addons – incluindo mods, texturas, mapas e muito mais – desenvolvidos para elevar o seu jogo a um novo patamar.
+
+No J335-STUDiOS, você encontra addons de alta performance, cuidadosamente testados e atualizados constantemente para garantir compatibilidade e qualidade. Nossa comunidade vibrante e apaixonada está sempre pronta para compartilhar ideias, dicas e experiências, fazendo do nosso site o ponto de encontro perfeito para jogadores que buscam personalizar e reinventar seus mundos no Minecraft.
+
+Transforme sua aventura, explore novas possibilidades e dê vida a criações únicas com os recursos exclusivos do J335-STUDiOS. Entre agora e faça parte da revolução que está redefinindo o universo Minecraft Bedrock – o futuro do seu jogo começa aqui!">
+  
+  <!-- Palavras-chave  -->
+  <meta name="keywords" content="J335-STUDiOS, addons, Minecraft, MCPE">
+  
+  <!-- Author -->
+  <meta name="author" content="Jenn335">
+  
+  <!-- Ícone que aparece na aba do navegador -->
+  <link rel="icon" href="/assets/img/icons/fav-icon.png" type="image/png">
+  
+  <!-- Ícone para dispositivos Apple (quando o usuário salvar o site na tela inicial) -->
+  <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+  
+  <title>Comunidade - J335-STUDiOS</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+    .community-section {
+      background: var(--dark-color);
+      border-radius: 10px;
+      border: 2px solid var(--primary-color);
+      margin: 20px 0;
+      padding: 20px;
+    }
+    
+    .post-card {
+      background: var(--accent-color);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--neon-effect);
+    }
+    
+    .post-content {
+      display: block;
+      position: relative;
+      left: -20%;
+      max-width: 100%;
+    }
+    
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-color);
+    }
+    
+    .discord-widget {
+      background: #36393f;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    
+    .badge-custom {
+      background: var(--primary-color);
+      color: black;
+    }
+    
+    #charCount {
+      color: #6c757d;
+      font-size: 0.8em;
+      transition: color 0.3s ease;
+    }
+    
+    #submitPostBtn:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      opacity: 0.7;
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 0.6em;
+      min-width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .hashtags {
+      display: flex;
+      position: relative;
+      left: -20%;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .hashtag {
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    
+    .hashtag:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+    
+    /* Desktop mode */
+    @media (max-width: 991.98px) {
+
+      .hashtags,
+      .post-content {
+        left: 0;
+      }
+    }
+    
+    .mention {
+      color: var(--primary-color);
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+    
+    .mention:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+    
+    .search-highlight {
+      background-color: rgba(255, 68, 68, 0.3);
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    
+    .post-id {
+      display: none;
+      font-family: monospace;
+      opacity: 0.6;
+    }
+    
+    .top-setion {
+      align-self: center padding: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <!-- Logotipo -->
+      <a class="navbar-brand" href="/">
+        <img src="/assets/img/logo.png" alt="J335-STUD!OS Logotipo" width="180" height="40" class="d-inline-block align-top">
+      </a>
+      
+      <!-- Botão Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Itens do Menu -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" id="notificationsDropdown" data-bs-toggle="dropdown">
+              <i class="fas fa-bell"></i> Notificações
+              <span class="badge bg-danger notification-badge">0</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" id="notificationsList"></div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i>Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">
+                  <i class="fas fa-user me-2"></i>Meu Perfil
+                </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button class="dropdown-item" onclick="logout()">
+                  <i class="fas fa-sign-out-alt me-2"></i>Sair
+                </button></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="addonsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-cubes me-1"></i>Addons
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/search">Todos os Addons</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/search?category=survival">Survival</a></li>
+              <li><a class="dropdown-item" href="/search?category=adventure">Aventura</a></li>
+              <li><a class="dropdown-item" href="/search?category=technology">Tecnologia</a></li>
+              <li><a class="dropdown-item" href="/search?category=magic">Magia</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tools">
+              <i class="fas fa-tools me-1"></i>Ferramentas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/community">
+              <i class="fas fa-users me-1"></i>Comunidade
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/support">
+              <i class="fas fa-headset me-1"></i>Suporte
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Barra de Pesquisa -->
+        <form class="d-flex ms-lg-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar Addons" aria-label="Search">
+          <button class="btn btn-outline-danger input-" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container py-2">
+    <div class="row mb-4 top-setion">
+      <div class="col-lg-8">
+        <div class="input-group mb-2">
+          <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar tópicos...">
+          <button class="input-icon btn btn-danger" id="searchButton">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="card bg-dark">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-tags"></i> Tags Populares</h5>
+            <div id="tagCloud"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Coluna Principal -->
+      <div class="col-lg-8">
+        <!-- Criar Novo Post -->
+        <div class="community-section">
+          <h4><i class="fas fa-pen me-2"></i>Criar Novo Post</h4>
+          <form id="newPostForm">
+            <div class="mb-3">
+              <textarea class="form-control" id="postContent" maxlength="100" minlength="3" rows="3" placeholder="Compartilhe suas ideias..." required></textarea>
+              <div class="d-flex justify-content-between mt-2">
+                <small id="charCount" class="text-generic">0/100 caracteres</small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-danger">
+              <i class="fas fa-paper-plane me-2"></i>Publicar
+            </button>
+          </form>
+        </div>
+        
+        <!-- Feed de Posts -->
+        <div class="community-section">
+          <h4><i class="fas fa-comments me-2"></i>Últimas Discussões</h4>
+          <div id="postsContainer"></div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <!-- Discord Widget -->
+        <div class="community-section">
+          <h4><i class="fab fa-discord me-2"></i>Comunidade Discord</h4>
+          <div class="discord-widget">
+            <iframe src="https://discord.com/widget?id=830066764057673808&theme=dark" width="100%" height="300" allowtransparency="true" frameborder="0"></iframe>
+          </div>
+        </div>
+        
+        <!-- Ranking de Usuários -->
+        <div class="community-section">
+          <h4><i class="fas fa-trophy me-2"></i>Top Contribuidores</h4>
+          <div id="leaderboard"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- Template de Post -->
+  <template id="postTemplate">
+    <div class="post-card p-3 mb-3">
+      <div class="d-flex gap-3">
+        <img class="user-avatar" src="/assets/img/profile_empty.png" alt="Avatar" onerror="this.src='/assets/img/profile_empty.jpg'">
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              <h6 class="mb-0 username"></h6>
+              <small class="text-generic timestamp"></small>
+            </div>
+            <span class="badge badge-custom category"></span>
+          </div>
+          
+          <!-- Conteúdo do Post com Hashtags e Menções -->
+          <p class="post-content mb-2"></p>
+          
+          <!-- Área de Hashtags -->
+          <div class="hashtags mb-2"></div>
+          
+          <!-- Ações e Estatísticas -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="post-actions">
+              <button class="btn btn-sm btn-outline-danger like-btn">
+                <i class="fas fa-heart"></i> <span class="like-count">0</span>
+              </button>
+              <button class="btn btn-sm btn-outline-danger ms-2 comment-btn">
+                <i class="fas fa-comment"></i> <span class="comment-count">0</span>
+              </button>
+            </div>
+            <small class="text-generic post-id"></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <!-- Footer -->
+  <footer class="border-top border-danger">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4 class="brand-logo mb-3">J335-STUD<span>!</span>OS</h4>
+          <p class="text-muted">Inovação em desenvolvimento de addons desde 2023</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="text-danger mb-3">Links Rápidos</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="#addons" class="social-link">
+                <i class="fas fa-dice-d20 me-2"></i>Nossos Addons
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#tools" class="social-link">
+                <i class="fas fa-tools me-2"></i>Ferramentas
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="social-link">
+                <i class="fas fa-headset me-2"></i>Suporte
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="text-danger mb-3">Conecte-se</h5>
+          <div class="d-flex gap-3">
+            <a href="https://discord.com/invite/EygNWCawhZ" class="social-link">
+              <i class="fab fa-discord fa-2x"></i>
+            </a>
+            <a href="https://youtube.com/@Jenn335_" class="social-link">
+              <i class="fab fa-youtube fa-2x"></i>
+            </a>
+            <a href="https://x.com/Jenn335Oficial" class="social-link">
+              <i class="fab fa-x-twitter fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <small class="text-muted">&copy; 2024 J335-STUD!OS - Todos os direitos reservados</small>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Alert-->
+  <div id="web-notification" class="alert-overlay">
+    <audio id="alert-sound" src="/assets/sounds/740422__anthonyrox__message-notification-3.wav"></audio>
+    <div class="alert-box">
+      <div class="alert-icon"></div>
+      <div class="alert-content">
+        <p class="alert-message"></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Loader -->
+  <div id="loader" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Bootstrap JS e dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Firebase Dependencies-->
+  <!-- Firebase App  -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase Storage -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+  
+  <!-- SupaBase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Common Scripts -->
+  <script defer src="/assets/js/loader.js"></script>
+  <script defer src="/assets/js/database.js"></script>
+  <script defer src="/assets/js/utilities.js"></script>
+  <script defer src="./index.js"></script>
+</body>
+
+</html>
