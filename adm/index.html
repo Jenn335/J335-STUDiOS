@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <!-- Mesmo head do index.html -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Administrador - J335-STUD!OS</title>
+  <!-- Bootstrap CSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Quill e Highlight CSS -->
+  <link rel="stylesheet" <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tomorrow-night.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  
+  <!-- Custom Style -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- TinyMCE -->
+  <script src="https://cdn.tiny.cloud/1/ea8033qapqi59vwnif56lpb3ypgtfj8kq90o5r93j1ea3yl0/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  
+  <style>
+    .admin-panel {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #1a1a1a;
+      border-radius: 10px;
+    }
+    
+    .admin-only {
+      display: none;
+    }
+    
+    .logged-in .admin-only {
+      display: block;
+    }
+    
+    .icon {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      object-position: center center;
+      margin: 10px;
+      margin-left: 0;
+      border-radius: 8px;
+      border: 2px solid #FFFFFF3D;
+    }
+    
+    .card-modName {
+      color: black;
+    }
+    
+    .card-modInfo {
+      flex-direction: column;
+      font-size: 0.9rem !important;
+    }
+    
+    .copy-btn {
+      width: 98px;
+    }
+    
+    .selected-categories {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .category-tag {
+      background-color: #000000;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+    }
+    
+    .category-tag button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    
+    #modForm {
+      padding-bottom: 30px;
+      border-bottom: 2px solid #FFFFFF63;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <!-- Logotipo -->
+      <a class="navbar-brand" href="/">
+        <img src="/assets/img/logo.png" alt="J335-STUD!OS Logotipo" width="180" height="40" class="d-inline-block align-top">
+      </a>
+      
+      <!-- Botão Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Itens do Menu -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="addonsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-cubes me-1"></i>Addons
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="addons.html">Todos os Addons</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="addons.html#survival">Survival</a></li>
+              <li><a class="dropdown-item" href="addons.html#adventure">Aventura</a></li>
+              <li><a class="dropdown-item" href="addons.html#technology">Tecnologia</a></li>
+              <li><a class="dropdown-item" href="addons.html#magic">Magia</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tools.html">
+              <i class="fas fa-tools me-1"></i>Ferramentas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="community.html">
+              <i class="fas fa-users me-1"></i>Comunidade
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="support.html">
+              <i class="fas fa-headset me-1"></i>Suporte
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Barra de Pesquisa -->
+        <form class="d-flex ms-lg-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar Addons" aria-label="Search">
+          <button class="btn btn-outline-danger" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="ModalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-3 border-danger">
+        <div class="modal-header bg-dark border-bottom-danger">
+          <h1 class="modal-title text-danger" id="modal-title">
+            <i class="fa-solid fa-right-from-bracket me-2"></i>Terminar Secção
+          </h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-darker">
+          <div class="d-flex align-items-center gap-3">
+            <i class="fas fa-exclamation-triangle text-danger fa-2x"></i>
+            <p id="modal-context" class="mb-0 text-generic">Você realmente deseja encerrar sua sessão?</p>
+          </div>
+        </div>
+        <div class="modal-footer bg-dark border-top-danger">
+          <button type="button" class="btn btn-dark hover-danger" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i>Cancelar
+          </button>
+          <button id="modal-button-confirm" type="button" class="btn btn-outline-danger hover-fill" onclick="logout()">
+            <i class="fas fa-sign-out-alt me-2"></i>Sair
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div id="adminPanel" class="admin-panel">
+      <!-- Conteúdo dinâmico será carregado aqui -->
+    </div>
+  </div>
+  
+  <!-- Alert-->
+  <div id="web-notification" class="alert-overlay">
+    <audio id="alert-sound" src="/assets/sounds/740422__anthonyrox__message-notification-3.wav"></audio>
+    <div class="alert-box">
+      <div class="alert-icon"></div>
+      <div class="alert-content">
+        <p class="alert-message"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loader" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Bootstrap JS e dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Firebase Dependencies-->
+  <!-- Firebase App  -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase Storage -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+  
+  <!-- SupaBase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  
+  <!-- Quill & Highlight JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <!--script src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js"></script-->
+  
+  
+  <!-- Common Scripts -->
+  <script defer src="/assets/js/loader.js"></script>
+  <script defer src="/assets/js/database.js"></script>
+  <script defer src="/assets/js/utilities.js"></script>
+  <script defer src="/assets/js/tinymce.js"></script>
+  <script defer src="/assets/js/quill.js"></script>
+  
+  <script defer src="./admin.js"></script>
+</body>
+
+</html>
