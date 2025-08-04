@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <!-- Charset -->
+  <meta charset="UTF-8">
+  
+  <!-- Internet Explorer -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Mobile Configs -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Description -->
+  <meta name="description" content="Descubra a Revolução dos Addons para Minecraft Bedrock com J335-STUDiOS!
+  
+Bem-vindo ao J335-STUDiOS, a plataforma definitiva para transformar sua experiência no Minecraft Bedrock. Aqui, a inovação se une à criatividade para oferecer uma seleção exclusiva de addons – incluindo mods, texturas, mapas e muito mais – desenvolvidos para elevar o seu jogo a um novo patamar.
+
+No J335-STUDiOS, você encontra addons de alta performance, cuidadosamente testados e atualizados constantemente para garantir compatibilidade e qualidade. Nossa comunidade vibrante e apaixonada está sempre pronta para compartilhar ideias, dicas e experiências, fazendo do nosso site o ponto de encontro perfeito para jogadores que buscam personalizar e reinventar seus mundos no Minecraft.
+
+Transforme sua aventura, explore novas possibilidades e dê vida a criações únicas com os recursos exclusivos do J335-STUDiOS. Entre agora e faça parte da revolução que está redefinindo o universo Minecraft Bedrock – o futuro do seu jogo começa aqui!">
+  
+  <!-- Palavras-chave  -->
+  <meta name="keywords" content="J335-STUDiOS, addons, Minecraft, MCPE">
+  
+  <!-- Author -->
+  <meta name="author" content="Jenn335">
+  
+  <!-- Ícone que aparece na aba do navegador -->
+  <link rel="icon" href="/assets/img/icons/fav-icon.png" type="image/png">
+  
+  <!-- Ícone para dispositivos Apple (quando o usuário salvar o site na tela inicial) -->
+  <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+  
+  <title>Sobre Nós - J335-STUDiOS</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+    .about-hero {
+      background: linear-gradient(135deg, var(--dark-color), #250000);
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .founder-card {
+      background: var(--accent-color);
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+      height: 380px;
+    }
+    
+    .founder-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .value-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+    }
+    
+    .timeline {
+      border-left: 3px solid var(--primary-color);
+      position: relative;
+      padding-left: 30px;
+      margin-left: 20px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+    }
+    
+    .accordion-button {
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background-color: var(--primary-color) !important;
+      color: black !important;
+    }
+    
+    .accordion-body {
+      background-color: var(--accent-color);
+      color: #ffffffcc;
+    }
+    
+    .accordion-item {
+      margin-bottom: 10px;
+      border-radius: 8px !important;
+      overflow: hidden;
+    }
+    
+    .accordion-button::after {
+      filter: invert(1);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <!-- Logotipo -->
+      <a class="navbar-brand" href="/">
+        <img src="/assets/img/logo.png" alt="J335-STUD!OS Logotipo" width="180" height="40" class="d-inline-block align-top">
+      </a>
+      
+      <!-- Botão Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Itens do Menu -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i>Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">
+                  <i class="fas fa-user me-2"></i>Meu Perfil
+                </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button class="dropdown-item" onclick="logout()">
+                  <i class="fas fa-sign-out-alt me-2"></i>Sair
+                </button></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="addonsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-cubes me-1"></i>Addons
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/search">Todos os Addons</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/search?category=survival">Survival</a></li>
+              <li><a class="dropdown-item" href="/search?category=adventure">Aventura</a></li>
+              <li><a class="dropdown-item" href="/search?category=technology">Tecnologia</a></li>
+              <li><a class="dropdown-item" href="/search?category=magic">Magia</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tools">
+              <i class="fas fa-tools me-1"></i>Ferramentas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/community">
+              <i class="fas fa-users me-1"></i>Comunidade
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/support">
+              <i class="fas fa-headset me-1"></i>Suporte
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Barra de Pesquisa -->
+        <form class="d-flex ms-lg-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar Addons" aria-label="Search">
+          <button class="btn btn-outline-danger" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="about-hero text-center text-white">
+    <div class="container">
+      <h1 class="display-4 mb-4">Criando Experiências Épicas no Minecraft</h1>
+      <p class="lead">Desde 2023, transformando ideias em addons incríveis</p>
+    </div>
+  </section>
+  
+  <section id="multiconcepts" class="py-5">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Missão -->
+        <div id="mission" class="col-md-6">
+          <div class="p-4 founder-card">
+            <div class="value-icon mb-3">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3>Nossa Missão</h3>
+            <p class="text-generic">
+              Revolucionar a experiência do Minecraft Bedrock através de addons
+              inovadores que combinam criatividade, performance e usabilidade.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Visão -->
+        <div id="vision" class="col-md-6">
+          <div class="p-4 founder-card">
+            <div class="value-icon mb-3">
+              <i class="fas fa-binoculars"></i>
+            </div>
+            <h3>Nossa Visão</h3>
+            <p class="text-generic">
+              Tornar-se a principal referência em desenvolvimento de conteúdo
+              customizado para a comunidade Bedrock Edition.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Linha do Tempo -->
+  <section id="timeline" class="py-5 bg-dark">
+    <div class="container">
+      <h2 class="text-center mb-5">Nossa Jornada</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>2023 - Fundação</h4>
+          <p>Primeiros addons lançados e estabelecimento da comunidade</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2024 - Expansão</h4>
+          <p>Lançamento da plataforma completa com sistema de upload</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2025 - Inovação</h4>
+          <p>Integração com Realms e parcerias com creators internacionais</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Equipe -->
+  <section id="team" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Nossa Equipe</h2>
+      <div id="team" class="row g-4">
+        
+        <template id="team-card">
+          <div class="col-md-4">
+            <div class="founder-card p-4 text-center">
+              <img src="/assets/img/profile_empty.jpg" class="user-avatar rounded-circle mb-3" alt="Avatar" width="150" height="150">
+              <h4 class="user-name">Username</h4>
+              <p class="user-position text-generic">Member</p>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="#team" class="btn btn-outline-danger btn-sm">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="#team" class="btn btn-outline-danger btn-sm">
+                  <i class="fab fa-discord"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </template>
+        <!-- Adicione mais membros da equipe -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- Valores -->
+  <section id="values" class="py-5 bg-dark">
+    <div class="container">
+      <h2 class="text-center mb-5">Nossos Valores</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="p-3 founder-card">
+            <div class="value-icon mb-3">
+              <i class="fas fa-code"></i>
+            </div>
+            <h4>Inovação Técnica</h4>
+            <p class="text-generic">Expandindo os limites dos recursos da Bedrock Edition</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 founder-card">
+            <div class="value-icon mb-3">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4>Comunidade Primeiro</h4>
+            <p class="text-generic">Desenvolvimento guiado pelas necessidades dos jogadores</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 founder-card">
+            <div class="value-icon mb-3">
+              <i class="fas fa-lock"></i>
+            </div>
+            <h4>Segurança</h4>
+            <p class="text-generic">Addons testados e livres de malware</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="FAQs" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Perguntas Frequentes</h2>
+      
+      <div class="accordion" id="faqAccordion">
+        <!-- Item 1 -->
+        <div class="accordion-item bg-dark border-danger">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-accent text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              <i class="fas fa-question-circle me-2"></i>
+              Como criar uma conta no site?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>Para criar uma conta:</p>
+              <ol>
+                <li>Acesse qualquer página que requira login</li>
+                <li>Clique no botão "Entrar" no canto superior direito</li>
+                <li>Selecione "Criar Conta"</li>
+                <li>Siga os passos de verificação por e-mail</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="accordion-item bg-dark border-danger">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-accent text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              <i class="fas fa-download me-2"></i>
+              Meus addons não estão funcionando, o que fazer?
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>Siga este checklist de solução de problemas:</p>
+              <ul>
+                <li>Verifique a compatibilidade da versão do Minecraft</li>
+                <li>Confira se seguiu corretamente o guia de instalação</li>
+                <li>Certifique-se de ter os requisitos mínimos do sistema</li>
+                <li>Se persistir, contate nosso suporte técnico</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 3 -->
+        <div class="accordion-item bg-dark border-danger">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-accent text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              <i class="fas fa-shield-alt me-2"></i>
+              Os addons são seguros?
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>Garantimos total segurança através de:</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul>
+                    <li>Verificação manual de todos os arquivos</li>
+                    <li>Análise automática contra malware</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul>
+                    <li>Sistema de certificação digital</li>
+                    <li>Revisão pela comunidade</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 4 -->
+        <div class="accordion-item bg-dark border-danger">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-accent text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+              <i class="fas fa-coins me-2"></i>
+              Como contribuir com novos addons?
+            </button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>Abaixo estão especificações:</p>
+              <ul>
+                <li>Apenas o administrador pode submeter os addons que pertencem a J335-STUDiOS</li>
+                <li>Usuários cadastrados na plataforma podem deixar suas contribuições nos posts e comentários</li>
+                <li>Para fazer um post acesse a página <a href="/community" class="text-link">Comunidade</a></li>
+                <li>Interaja e fale acerca de possíveis melhorias e ideais construtivas na comunidade ou pelo discord</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 5 -->
+        <div class="accordion-item bg-dark border-danger">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-accent text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+              <i class="fas fa-cogs me-2"></i>
+              Quais são os requisitos técnicos?
+            </button>
+          </h3>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Mínimos:</h5>
+                  <ul>
+                    <li>Android 8+/iOS 12+</li>
+                    <li>2GB RAM</li>
+                    <li>500MB espaço livre</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h5>Recomendados:</h5>
+                  <ul>
+                    <li>Snapdragon 845+/Apple A12+</li>
+                    <li>4GB RAM</li>
+                    <li>1GB espaço livre</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Ainda tem dúvidas? -->
+      <div class="text-center mt-5">
+        <h4 class="mb-3">Ainda precisa de ajuda?</h4>
+        <a href="/contact" class="btn btn-danger">
+          <i class="fas fa-envelope me-2"></i>Contate nosso suporte
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="border-top border-danger">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4 class="brand-logo mb-3">J335-STUD<span>!</span>OS</h4>
+          <p class="text-generic">Inovação em desenvolvimento de addons desde 2023</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="text-danger mb-3">Links Rápidos</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="/search" class="social-link">
+                <i class="fas fa-dice-d20 me-2"></i>Nossos Addons
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/tools" class="social-link">
+                <i class="fas fa-tools me-2"></i>Ferramentas
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/contact" class="social-link">
+                <i class="fas fa-headset me-2"></i>Suporte
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="/about-us" class="social-link">
+                <i class="bi bi-info-circle me-2"></i>Sobre Nós
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="end-info">
+          <!--h5 class="text-danger mb-3">Conecte-se</h5-->
+          <div class="d-flex gap-3 justify-content-center">
+            <a href="https://discord.com/invite/EygNWCawhZ" class="social-link icon">
+              <i class="fab fa-discord fa-2x"></i>
+            </a>
+            <a href="https://youtube.com/@Jenn335_" class="social-link icon">
+              <i class="fab fa-youtube fa-2x"></i>
+            </a>
+            <a href="https://x.com/Jenn335Oficial" class="social-link icon">
+              <i class="fab fa-x-twitter fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <small class="text-generic">&copy; 2024 J335-STUD!OS - Todos os direitos reservados</small>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Alert-->
+  <div id="web-notification" class="alert-overlay">
+    <audio id="alert-sound" src="/assets/sounds/740422__anthonyrox__message-notification-3.wav"></audio>
+    <div class="alert-box">
+      <div class="alert-icon"></div>
+      <div class="alert-content">
+        <p class="alert-message"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loader" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Bootstrap JS e dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Firebase Dependencies-->
+  <!-- Firebase App  -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase Storage -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+  
+  <!-- SupaBase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Common Scripts -->
+  <script defer src="/assets/js/loader.js"></script>
+  <script defer src="/assets/js/database.js"></script>
+  <script defer src="/assets/js/utilities.js"></script>
+  <script defer src="./index.js"></script>
+</body>
+
+</html>
