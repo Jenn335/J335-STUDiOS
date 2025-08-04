@@ -1,0 +1,70 @@
+:root {
+    --primary-color: #dc3545;
+    --dark-bg: #0a0a0a;
+    --secondary-bg: #1a1a1a;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: #e0e0e0;
+}
+
+.mod-card {
+    background: var(--secondary-bg);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.mod-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.mod-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+.like-btn {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.liked {
+    color: var(--primary-color) !important;
+    animation: likeBounce 0.5s ease;
+}
+
+.unliked {
+    color: #BEC4FFA6 !important;
+}
+
+.card-media-btn {
+    font-size: 0.7rem;
+    margin: 0;
+    padding: 0px;
+}
+
+.view-icon {
+    position: relative;
+    padding: 0px !important;
+    bottom: 0px !important;
+}
+
+@keyframes likeBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5) translateY(-2px); }
+    100% { transform: scale(1); }
+}
+
+.screenshot-thumb {
+    width: 100px;
+    height: 56px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #333;
+    margin: 5px;
+}
