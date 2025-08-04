@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+
+<head>
+  <!-- Charset -->
+  <meta charset="UTF-8">
+  
+  <!-- Internet Explorer -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Mobile Configs -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Description -->
+  <meta name="description" content="Descubra a Revolução dos Addons para Minecraft Bedrock com J335-STUDiOS!
+  
+Bem-vindo ao J335-STUDiOS, a plataforma definitiva para transformar sua experiência no Minecraft Bedrock. Aqui, a inovação se une à criatividade para oferecer uma seleção exclusiva de addons – incluindo mods, texturas, mapas e muito mais – desenvolvidos para elevar o seu jogo a um novo patamar.
+
+No J335-STUDiOS, você encontra addons de alta performance, cuidadosamente testados e atualizados constantemente para garantir compatibilidade e qualidade. Nossa comunidade vibrante e apaixonada está sempre pronta para compartilhar ideias, dicas e experiências, fazendo do nosso site o ponto de encontro perfeito para jogadores que buscam personalizar e reinventar seus mundos no Minecraft.
+
+Transforme sua aventura, explore novas possibilidades e dê vida a criações únicas com os recursos exclusivos do J335-STUDiOS. Entre agora e faça parte da revolução que está redefinindo o universo Minecraft Bedrock – o futuro do seu jogo começa aqui!">
+  
+  <!-- Palavras-chave  -->
+  <meta name="keywords" content="J335-STUDiOS, addons, Minecraft, MCPE">
+  
+  <!-- Author -->
+  <meta name="author" content="Jenn335">
+  
+  <!-- Ícone que aparece na aba do navegador -->
+  <link rel="icon" href="/assets/img/icons/fav-icon.png" type="image/png">
+  
+  <!-- Ícone para dispositivos Apple (quando o usuário salvar o site na tela inicial) -->
+  <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+  
+  <title>Suporte Técnico - J335-STUDiOS</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+    
+    .custom-header {
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+        url('/assets/img/bg/f7ad582d-8eb9-4bb2-90e4-b68d0f963424.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 4rem 0;
+      border-bottom: 3px solid var(--primary-color);
+    }
+    
+    .faq-item {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .contact-form {
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+    
+    .form-control {
+      background-color: #333;
+      border: 1px solid #444;
+      color: white;
+    }
+    
+    .form-control:focus {
+      background-color: #444;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+    }
+    
+    .btn-primary:hover {
+      background-color: #bb2d3b;
+    }
+    
+    .contact-card {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover,
+    .contact-card:focus {
+      border-color: var(--primary-color);
+      transform: scale(1.1);
+    }
+    
+    p.text-email {
+      font-size: 75%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="custom-header text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-3">
+        <i class="fas fa-headset me-2"></i>Suporte Técnico
+      </h1>
+      <p class="lead">Estamos aqui para ajudar. Encontre respostas ou entre em contato conosco.</p>
+    </div>
+  </header>
+  
+  <main class="container py-5">
+    <!-- Seção FAQ -->
+    <section class="mb-5">
+      <h2 class="mb-4"><i class="fas fa-question-circle me-2"></i>Perguntas Frequentes</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              Como resetar minha senha?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Acesse a página de login e clique em "Esqueci minha senha". Siga as instruções enviadas para seu email.
+            </div>
+          </div>
+        </div>
+        <!-- Adicione mais FAQs -->
+      </div>
+    </section>
+    
+    <!-- Formulário de Contato -->
+    <section class="mb-5">
+      <h2 class="mb-4"><i class="fas fa-envelope me-2"></i>Contato Técnico</h2>
+      <div class="contact-form p-4">
+        <form id="supportForm">
+          <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Assunto</label>
+            <select class="form-select" id="subject" required>
+              <option value="">Selecione...</option>
+              <option>Problema Técnico</option>
+              <option>Dúvida</option>
+              <option>Sugestão</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrição do Problema</label>
+            <textarea class="form-control" id="description" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-paper-plane me-2"></i>Enviar Solicitação
+          </button>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Métodos de Contato -->
+    <section class="mb-5">
+      <h2 class="mb-4"><i class="fas fa-phone-alt me-2"></i>Outros Contatos</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="contact-card text-center h-100">
+            <i class="fas fa-envelope fa-3x mb-3 text-danger"></i>
+            <h3>Email</h3>
+            <!-- p id="email" class="text-email text-copy">j335.studios.oficial@gmail.com</p -->
+            <a class="btn btn-outline-danger" href="mailto:j335.studios.oficial@gmail.com?subject=Problema%20Tecnico%20Email&body=Descreva%20o%20problema%21" class="text-email">
+    Escrever Email
+  </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card text-center h-100">
+            <i class="fab fa-whatsapp fa-3x mb-3 text-danger"></i>
+            <h3>WhatsApp</h3>
+            <a href="https://chat.whatsapp.com/LdY5Hy90gZXHSgTwzYsozq" class="btn btn-outline-danger">Acessar grupo</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card text-center h-100">
+            <i class="fas fa-comment-dots fa-3x mb-3 text-danger"></i>
+            <h3>Discord</h3>
+            <a href="https://discord.com/users/813487419248214046" class="btn btn-outline-danger mt-2">Iniciar Chat</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+    <!-- Footer -->
+  <footer class="border-top border-danger">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4 class="brand-logo mb-3">J335-STUD<span>!</span>OS</h4>
+          <p class="text-generic">Inovação em desenvolvimento de addons desde 2023</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="text-danger mb-3">Links Rápidos</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="#addons" class="social-link">
+                <i class="fas fa-dice-d20 me-2"></i>Nossos Addons
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#tools" class="social-link">
+                <i class="fas fa-tools me-2"></i>Ferramentas
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="social-link">
+                <i class="fas fa-headset me-2"></i>Suporte
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="text-danger mb-3">Conecte-se</h5>
+          <div class="d-flex gap-3">
+            <a href="https://discord.com/invite/EygNWCawhZ" class="social-link">
+              <i class="fab fa-discord fa-2x"></i>
+            </a>
+            <a href="https://youtube.com/@Jenn335_" class="social-link">
+              <i class="fab fa-youtube fa-2x"></i>
+            </a>
+            <a href="https://x.com/Jenn335Oficial" class="social-link">
+              <i class="fab fa-x-twitter fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <small class="text-generic">&copy; 2024 J335-STUD!OS - Todos os direitos reservados</small>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Alert-->
+  <div id="web-notification" class="alert-overlay">
+    <audio id="alert-sound" src="/assets/sounds/740422__anthonyrox__message-notification-3.wav"></audio>
+    <div class="alert-box">
+      <div class="alert-icon"></div>
+      <div class="alert-content">
+        <p class="alert-message"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loader" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Bootstrap JS e dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Firebase Dependencies-->
+  <!-- Firebase App  -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase Storage -->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+  
+  <!-- SupaBase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Common Scripts -->
+  <script defer src="/assets/js/loader.js"></script>
+  <script defer src="/assets/js/firebase.js"></script>
+  <script defer src="/assets/js/utilities.js"></script>
+  <script defer src="./support.js"></script>
+</body>
+
+</html>
